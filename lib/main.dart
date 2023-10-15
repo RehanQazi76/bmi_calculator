@@ -1,8 +1,12 @@
 // import 'package:bmi_calculator/Screens/InputPage.dart';
 import 'package:bmi_calculator/Screens/Result_page.dart';
+import 'package:bmi_calculator/calculate.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'Widgets/BottomButton.dart';
+import 'Widgets/Gender_set.dart';
 import 'Widgets/Reusable_Card.dart';
 enum Gender{
   male,
@@ -64,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
        title: Center(
          child: Text("BMI calculator",
-         style: GoogleFonts.roboto(
+         style: GoogleFonts.oswald(
                 fontSize: 30.0,
                 color: Colors.white, 
               ),),
@@ -129,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                   Text(hieght.toString(),
-                   style:GoogleFonts.roboto
+                   style:GoogleFonts.oswald
                    (
                   fontSize: 50.0,
                   fontWeight: FontWeight.w800,
@@ -137,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                   ),
                   Text("cm",
-                   style:GoogleFonts.roboto(
+                   style:GoogleFonts.oswald(
                   fontSize: 30.0,
                   color: Colors.white, 
                   fontWeight: FontWeight.w600
@@ -194,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   SizedBox(height: 10,),
                   Text(weight.toString(),
-                        style:GoogleFonts.roboto
+                        style:GoogleFonts.oswald
                               (
                              fontSize: 40.0,
                              fontWeight: FontWeight.w800,
@@ -253,7 +257,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   SizedBox(height: 10,),
                   Text(age.toString(),
-                        style:GoogleFonts.roboto
+                        style:GoogleFonts.oswald
                               (
                              fontSize: 50.0,
                              fontWeight: FontWeight.w800,
@@ -300,27 +304,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               ),
               
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Result_page()));
-                },
-                child: Container(
-                  
-                  color: active,
-                  width: double.infinity,
-                  
-                 margin: EdgeInsets.only(bottom: 20,top: 10),
-                  
-                  height: 50,
-                  child: Text("Calulate",
-                  textAlign: TextAlign.center ,
-                  style: GoogleFonts.pacifico(
-                  fontSize: 30.0,
-                  color: Colors.white, 
-                   ),
-                  ),
-                  
-                ),
+              BottomButton(
+                label: "Calculate",
+                onpress: (){
+                  Calculate c1=new Calculate(hieght, weight);
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Result_page(c1.Calbmi(),c1.GetResult(),c1.GetInterpretation())));
+      
+                       },
               ),
               
             ]
@@ -329,35 +319,6 @@ class _MyHomePageState extends State<MyHomePage> {
       )
        // This trailing comma makes auto-formatting nicer for build methods.
     );
-  }
-}
-
-class GenderSet extends StatelessWidget {
-  const GenderSet(this.icon,this.label);
-  final IconData icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:<Widget> [
-            
-            Icon(
-              icon,
-              size: 80,
-              color: Colors.white,
-            ),
-            SizedBox(height:10,),
-            Text(label,
-            style: GoogleFonts.pacifico(
-              fontSize: 30.0,
-              color: Colors.white, 
-            ),
-            )
-          
-          ],
-        );
   }
 }
 
